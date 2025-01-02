@@ -3,7 +3,7 @@ using decaf.common;
 using decaf.common.ValueFunctions;
 using decaf.state.Conditionals;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
 	public class ColumnValueBuilder : IColumnValueBuilder
 	{

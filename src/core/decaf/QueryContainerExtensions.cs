@@ -13,7 +13,7 @@ namespace decaf
         /// <returns>(FluentApi) The ability to specify the table, view or other schema item to delete from.</returns>
         /// <example>q.Delete().From("users", "u").Where(b => b.Column("name").Is().StartsWith("bob");</example>
 		public static IDelete Delete(this IQueryContainer query)
-            => Implementation.Delete.Create(query.CreateContext<IDeleteQueryContext>(), query);
+            => Implementation.Execute.Delete.Create(query.CreateContext<IDeleteQueryContext>(), query);
 
         /// <summary>
         /// Begin a select query, this will allow you to retrieve records from one or more
@@ -23,7 +23,7 @@ namespace decaf
         /// <returns>(FluentApi) The ability to specify the base table, view or other schema item to select from.</returns>
         /// <example>q.Select().From("users", "u").Where(b => b.Column("name").Is().EndssWith("bob");</example>
         public static ISelect Select(this IQueryContainer query)
-            => Implementation.Select.Create(query.CreateContext<ISelectQueryContext>(), query);
+            => Implementation.Execute.Select.Create(query.CreateContext<ISelectQueryContext>(), query);
 
         /// <summary>
         /// Begin an insert query, this will allow you to insert records into a single table.<br/>
@@ -34,7 +34,7 @@ namespace decaf
         /// <returns>(FluentApi) The ability to specify the base table, view to insert into.</returns>
         /// <example>q.Insert().Into("users", "u"),Value(new { first_name = "Bob", last_name = "Smith" });</example>
         public static IInsert Insert(this IQueryContainer query)
-            => Implementation.Insert.Create(query.CreateContext<IInsertQueryContext>(), query);
+            => Implementation.Execute.Insert.Create(query.CreateContext<IInsertQueryContext>(), query);
 
         /// <summary>
         /// Begin an update query, this will allow you to update records into a single table.<br/>
@@ -45,7 +45,7 @@ namespace decaf
         /// <returns>(FluentApi) The ability to specify the base table, view to update values in.</returns>
         /// <example>q.Update().Table("users", "u"),Set(new { first_name = "Bob", last_name = "Smith" }).Where(b => b.Column("id").Is().EqualTo(42);</example>
         public static IUpdate Update(this IQueryContainer query)
-            => Implementation.Update.Create(query.CreateContext<IUpdateQueryContext>(), query);
+            => Implementation.Execute.Update.Create(query.CreateContext<IUpdateQueryContext>(), query);
     }
 }
 

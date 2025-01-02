@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using decaf.common;
 using decaf.common.Utilities;
-using decaf.state.DDL;
+using decaf.state.Ddl.Definitions;
 
 namespace decaf.state;
 

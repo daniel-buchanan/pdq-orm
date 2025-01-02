@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using decaf.common.DebugProxies;
 
 namespace decaf.common
 {

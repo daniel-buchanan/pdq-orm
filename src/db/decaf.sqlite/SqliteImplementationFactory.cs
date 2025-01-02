@@ -53,10 +53,12 @@ public class SqliteImplementationFactory : DbImplementationFactory
         => typeof(Builders.CreateTableBuilderPipeline);
 
     /// <inheritdoc/>
-    protected override Type AlterTablePipeline() => throw new NotImplementedException();
+    protected override Type AlterTablePipeline() 
+        => null!;
 
     /// <inheritdoc/>
-    protected override Type DropTablePipeline() => throw new NotImplementedException();
+    protected override Type DropTablePipeline() 
+        => typeof(Builders.DropTableBuilderPipeline);
 
     /// <inheritdoc/>
     protected override Type Constants() 

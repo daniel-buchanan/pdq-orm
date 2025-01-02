@@ -1,4 +1,4 @@
-﻿namespace decaf.Implementation
+﻿namespace decaf.Implementation.Execute
 {
     public class InsertColumnBuilder : IInsertColumnBuilder
     {

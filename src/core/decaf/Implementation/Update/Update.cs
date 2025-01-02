@@ -5,7 +5,7 @@ using decaf.common;
 using decaf.state;
 using decaf.state.ValueSources.Update;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     internal class Update :
         UpdateBase,

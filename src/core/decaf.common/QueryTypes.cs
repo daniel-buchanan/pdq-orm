@@ -10,7 +10,8 @@ namespace decaf.common
 		Update = 2,
 		Insert = 4,
 		Delete = 8,
-		CreateTable = 16
+		CreateTable = 16,
+		DropTable = 32
 	}
 }
 

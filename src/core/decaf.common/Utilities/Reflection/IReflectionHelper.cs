@@ -23,5 +23,7 @@ namespace decaf.common.Utilities.Reflection
         Type GetUnderlyingType<T>();
         bool IsNullableType(Type toCheck);
         bool IsNullableType<T>();
+        IEnumerable<AttributeInfo> GetAttributes<TSource, TAttribute>()
+            where TAttribute : Attribute;
     }
 }

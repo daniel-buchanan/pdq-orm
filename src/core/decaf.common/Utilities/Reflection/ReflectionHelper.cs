@@ -286,6 +286,24 @@ namespace decaf.common.Utilities.Reflection
             return IsNullableType(typeof(T));
         }
 
+        public IEnumerable<AttributeInfo> GetAttributes<TSource, TAttribute>() where TAttribute : Attribute
+        {
+            var attributes = new List<AttributeInfo>();
+            var classType = typeof(TSource);
+            var classAttrs = classType.GetCustomAttributes(inherit: true, attributeType: typeof(TAttribute));
+            var classAttributes = classAttrs
+                .Select(a => AttributeInfo.Create(classType.Name, classType, SourceType.Class, a));
+            var properties = classType.GetProperties();
+            var propertyAttributes = properties.SelectMany(p =>
+            {
+                var attrs = p.GetCustomAttributes(typeof(TAttribute));
+                return attrs.Select(a => AttributeInfo.Create(p.Name, p.PropertyType, SourceType.Property, a));
+            });
+            attributes.AddRange(classAttributes);
+            attributes.AddRange(propertyAttributes);
+            return attributes;
+        }
+
         public Type GetUnderlyingType<T>(T someType)
         {
             return GetUnderlyingType<T>();

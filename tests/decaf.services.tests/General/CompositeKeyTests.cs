@@ -76,11 +76,12 @@ public class CompositeKeyTests
         // Act
         var hash1 = key1.GetHashCode();
         var hash2 = key2.GetHashCode();
-        var hash3 = key1.GetHashCode();
+        var hash3 = key3.GetHashCode();
 
         // Assert
         hash1.Should().Be(hash2);
         hash2.Should().Be(hash3);
+        hash3.Should().Be(hash1);
     }
 
     [Fact]

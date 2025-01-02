@@ -42,5 +42,27 @@ namespace decaf.db.common
         /// <param name="value">The value to check for quoting</param>
         /// <returns>True if the value needs quoting, False if not.</returns>
         bool ValueNeedsQuoting<T>(T value);
+
+        /// <summary>
+        /// Quote the input value if necessary.
+        /// </summary>
+        /// <param name="value">The value to be inputted and parsed, and quoted if necessary.</param>
+        /// <param name="useColumnQuotes">
+        /// Whether the input value being parsed should use column quotes,
+        /// the default is value quotes.</param>
+        /// <typeparam name="T">The type of the incoming value.</typeparam>
+        /// <returns>A string representation of the value, quoted if necessary.</returns>
+        string QuoteIfNecessary<T>(T value, bool useColumnQuotes = false);
+
+        /// <summary>
+        /// Quote the input value if necessary.
+        /// </summary>
+        /// <param name="type">The type to determine quoting from.</param>
+        /// <param name="value">The value to be inputted and parsed, and quoted if necessary.</param>
+        /// <param name="useColumnQuotes">
+        /// Whether the input value being parsed should use column quotes,
+        /// the default is value quotes.</param>
+        /// <returns>A string representation of the value, quoted if necessary.</returns>
+        string QuoteIfNecessary(Type type, string value, bool useColumnQuotes = false);
     }
 }

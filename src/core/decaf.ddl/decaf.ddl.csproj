@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <LangVersion>12</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\decaf.common\decaf.common.csproj" />
+      <ProjectReference Include="..\decaf.state\decaf.state.csproj" />
+      <ProjectReference Include="..\decaf\decaf.csproj" />
+    </ItemGroup>
+
+</Project>

@@ -33,6 +33,9 @@ namespace decaf.state
 			if (queryContextType.IsAssignableFrom(typeof(ICreateTableQueryContext)))
 				return (T)CreateTableQueryContext.Create(internalQuery.AliasManager, internalQuery.HashProvider);
 
+			if (queryContextType.IsAssignableFrom(typeof(IDropTableQueryContext)))
+				return (T)DropTableQueryContext.Create(internalQuery.AliasManager, internalQuery.HashProvider);
+
 			return default(T);
         }
 	}

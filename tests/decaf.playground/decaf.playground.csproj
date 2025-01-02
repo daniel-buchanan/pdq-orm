@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\core\decaf.common\decaf.common.csproj" />
+    <ProjectReference Include="..\..\src\core\decaf.ddl\decaf.ddl.csproj" />
     <ProjectReference Include="..\..\src\db\decaf.sqlite\decaf.sqlite.csproj" />
     <ProjectReference Include="..\..\src\extensions\decaf.services\decaf.services.csproj" />
     <ProjectReference Include="..\..\src\core\decaf.state\decaf.state.csproj" />
@@ -18,7 +19,7 @@
     <ProjectReference Include="..\decaf.core.tests\decaf.core.tests.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Moq" Version="4.20.69" />
+    <PackageReference Include="Moq" Version="4.20.72" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Mocks\" />

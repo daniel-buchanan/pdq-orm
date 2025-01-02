@@ -5,7 +5,7 @@ using decaf.common;
 using decaf.Exceptions;
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("decaf.core.tests")]
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     public class WhereBuilder : IWhereBuilderInternal
 	{

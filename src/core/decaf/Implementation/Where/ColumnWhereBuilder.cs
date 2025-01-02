@@ -1,6 +1,6 @@
 ﻿using decaf.common;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     public class ColumnWhereBuilder : IColumnWhereBuilder
     {

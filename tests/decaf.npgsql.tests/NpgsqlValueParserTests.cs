@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using decaf.common.Utilities.Reflection;
+using decaf.db.common.ANSISQL;
 using FluentAssertions;
 using Xunit;
 
@@ -8,7 +9,7 @@ namespace decaf.npgsql.tests;
 
 public class NpgsqlValueParserTests
 {
-	private readonly NpgsqlValueParser parser = new(new ReflectionHelper());
+	private readonly NpgsqlValueParser parser = new(new ReflectionHelper(), new Constants());
 
 	[Theory]
 	[MemberData(nameof(FromStringCases))]

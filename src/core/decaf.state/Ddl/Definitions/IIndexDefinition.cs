@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace decaf.state.DDL;
+namespace decaf.state.Ddl.Definitions;
 
 public interface IIndexDefinition
 {
@@ -14,3 +14,5 @@ public interface IIndexDefinition
     /// </summary>
     IEnumerable<IColumnDefinition> Columns { get; }
 }
+
+public interface IIndexDefinition<T> : IIndexDefinition;

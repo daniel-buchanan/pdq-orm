@@ -13,9 +13,6 @@
     <None Remove="ANSI-SQL\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ANSI-SQL\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
   </ItemGroup>
 </Project>

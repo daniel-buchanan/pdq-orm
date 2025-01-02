@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using decaf.common;
 using decaf.common.Utilities;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     internal class Execute<TResult, TContext> : Execute<TContext>, IExecute<TResult>
         where TContext: IQueryContext

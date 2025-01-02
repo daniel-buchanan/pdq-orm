@@ -3,6 +3,7 @@ using decaf.common.Logging;
 using decaf.common.Utilities;
 
 [assembly:System.Runtime.CompilerServices.InternalsVisibleTo("decaf")]
+[assembly:System.Runtime.CompilerServices.InternalsVisibleTo("decaf.ddl")]
 namespace decaf.common
 {
 	public interface IQueryContainerInternal : IQueryContainer

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using decaf.common.Utilities.Reflection;
+using decaf.sqlserver.Builders;
 using FluentAssertions;
 using Xunit;
 
@@ -8,7 +9,7 @@ namespace decaf.sqlserver.tests
 {
 	public class SqlServerValueParserTests
 	{
-		private readonly SqlServerValueParser parser = new(new ReflectionHelper());
+		private readonly SqlServerValueParser parser = new(new ReflectionHelper(), new Constants());
 
 		[Theory]
 		[MemberData(nameof(FromStringCases))]
@@ -61,18 +62,18 @@ namespace decaf.sqlserver.tests
 			get
 			{
                 var dt = DateTime.Parse(DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss"));
-                yield return new object[] { "42", 42 };
-                yield return new object[] { "42", (short)42 };
-                yield return new object[] { "42", (long)42 };
-                yield return new object[] { "42.2", (double)42.2 };
-                yield return new object[] { "42", (uint)42 };
-                yield return new object[] { "0x000102", new byte[] { 0, 1, 2 } };
-                yield return new object[] { "1" , true};
-                yield return new object[] { "0", false };
-                yield return new object[] { "hello world", "hello world" };
-                yield return new object[] { string.Empty, null };
-                yield return new object[] { dt.ToString("yyyy-MM-ddTHH:mm:ss"), dt };
-                yield return new object[] { null, (string)null };
+                yield return ["42", 42];
+                yield return ["42", (short)42];
+                yield return ["42", (long)42];
+                yield return ["42.2", (double)42.2];
+                yield return ["42", (uint)42];
+                yield return ["0x000102", new byte[] { 0, 1, 2 }];
+                yield return ["1" , true];
+                yield return ["0", false];
+                yield return ["hello world", "hello world"];
+                yield return [string.Empty, null];
+                yield return [dt.ToString("yyyy-MM-ddTHH:mm:ss"), dt];
+                yield return [null, (string)null];
             }
 		}
 	}

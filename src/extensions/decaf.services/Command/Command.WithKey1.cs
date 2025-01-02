@@ -117,7 +117,7 @@ namespace decaf.services
         /// <typeparam name="TKey">The type of the key.</typeparam>
         /// <param name="q">The <see cref="IQuery"/> instance to work with.</param>
         /// <param name="keyName">The name of the Key.</param>
-        private void GetKeyColumnNames(IQueryContainer q, out string keyName)
+        private static void GetKeyColumnNames(IQueryContainer q, out string keyName)
         {
             var tmp = new TEntity();
             keyName = GetKeyColumnName<TEntity>(q, tmp.KeyMetadata);

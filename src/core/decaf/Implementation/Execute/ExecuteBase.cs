@@ -8,14 +8,14 @@ using decaf.common;
 using decaf.common.Connections;
 using decaf.common.Utilities;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     public abstract class ExecuteBase<TContext> :
         IGetSql
         where TContext: IQueryContext
 	{
-        internal readonly IQueryContainerInternal Query;
-        internal TContext Context;
+        protected readonly IQueryContainerInternal Query;
+        protected TContext Context;
         protected readonly ISqlFactory SqlFactory;
 
 		protected ExecuteBase(

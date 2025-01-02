@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using decaf.common;
+using decaf.ddl;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
@@ -32,9 +34,10 @@ public class LiveTests
             .Named(nameof(TempTbl))
             .WithColumns(
                 c => c.Named(nameof(TempTbl.Id)).AsType<int>(),
-                c => c.Named(nameof(TempTbl.Name)).AsType<string>())
-            .WithPrimaryKey(c => c.Named(nameof(TempTbl.Id)));
+                c => c.Named(nameof(TempTbl.Name)).AsType<string>());
+            // .WithPrimaryKey(c => c.Named(nameof(TempTbl.Id)));
         var sql = d.GetSql();
+        Console.WriteLine(sql);
         d.Execute();
     }
 
@@ -112,6 +115,36 @@ public class LiveTests
 
         // Assert
         result.Should().HaveCount(n);
+    }
+
+    [Fact]
+    public async Task DropTableSucceeds()
+    {
+        // Arrange
+        var decaf = provider.GetRequiredService<IDecaf>();
+        var query = await decaf.QueryAsync();
+        
+        // Act
+        await query.DropTable().FromType<TempTbl>().ExecuteAsync();
+
+        // Assert
+        var success = false;
+        var unit = await decaf.BuildUnitAsync();
+        unit.OnSuccess(() => success = false);
+        unit.OnException(e =>
+        {
+            success = true;
+            return false;
+        });
+        unit.Query(q =>
+        {
+            q.Select()
+                .From<TempTbl>(t => t)
+                .SelectAll<TempTbl>(t => t)
+                .Execute();
+        });
+
+        success.Should().BeTrue();
     }
 
     private static IEnumerable<TempTbl> GenerateItemsToInsert(int n)

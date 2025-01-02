@@ -4,7 +4,7 @@ using decaf.common;
 using decaf.state;
 using decaf.state.QueryTargets;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     internal class Join : IJoinFrom, IJoinTo, IJoinConditions
     {

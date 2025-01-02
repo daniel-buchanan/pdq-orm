@@ -115,7 +115,7 @@ namespace decaf.services
         /// <param name="q">The <see cref="IQuery"/> instance to work with.</param>
         /// <param name="key1Name">The name of the first Key comoponent.</param>
         /// <param name="key2Name">The name of the second Key compononent.</param>
-        private void GetKeyColumnNames(IQueryContainer q, out string key1Name, out string key2Name)
+        private static void GetKeyColumnNames(IQueryContainer q, out string key1Name, out string key2Name)
         {
             var tmp = new TEntity();
             key1Name = GetKeyColumnName<TEntity>(q, tmp.KeyMetadata.ComponentOne);

@@ -1,25 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using decaf.common.Utilities.Reflection;
+using decaf.db.common.Builders;
 
 namespace decaf.db.common
 {
-    public abstract class ValueParser : IValueParser
-	{
-        protected readonly IReflectionHelper reflectionHelper;
-
-        protected ValueParser(IReflectionHelper reflectionHelper)
-		{
-            this.reflectionHelper = reflectionHelper;
-		}
+    public abstract class ValueParser(IReflectionHelper reflectionHelper, IConstants constants) : IValueParser
+    {
+        protected readonly IReflectionHelper ReflectionHelper = reflectionHelper;
+        protected readonly IConstants Constants = constants;
 
         protected abstract List<Tuple<string, string>> Replacements { get; }
 
         /// <inheritdoc/>
         public T FromString<T>(string value)
         {
-            var isNullable = reflectionHelper.IsNullableType<T>();
-            var underlyingType = reflectionHelper.GetUnderlyingType<T>();
+            var isNullable = ReflectionHelper.IsNullableType<T>();
+            var underlyingType = ReflectionHelper.GetUnderlyingType<T>();
 
             if (isNullable && value == null) return default(T);
             if (string.IsNullOrWhiteSpace(value)) return default(T);
@@ -52,12 +50,13 @@ namespace decaf.db.common
             return ChangeType<T>(Convert.ToString(value));
         }
 
-        private T ChangeType<T>(object input)
+        private static T ChangeType<T>(object input)
             => (T)Convert.ChangeType(input, typeof(T));
 
         protected abstract byte[] BytesFromString(string input);
 
-        protected abstract bool BooleanFromString(string input);
+        protected virtual bool BooleanFromString(string input)
+            => input == Constants.True; 
 
         /// <inheritdoc/>
         public string ToString<T>(T value) => ToString(value, value?.GetType() ?? typeof(T));
@@ -65,7 +64,7 @@ namespace decaf.db.common
         /// <inheritdoc/>
         public string ToString(object value, Type type)
         {
-            var underlyingType = reflectionHelper.GetUnderlyingType(type);
+            var underlyingType = ReflectionHelper.GetUnderlyingType(type);
 
             if (value == null) return string.Empty;
 
@@ -85,7 +84,7 @@ namespace decaf.db.common
                 underlyingType == typeof(float) ||
                 underlyingType == typeof(Single) ||
                 underlyingType == typeof(decimal))
-                return Convert.ToDecimal(value).ToString();
+                return Convert.ToDecimal(value).ToString(CultureInfo.InvariantCulture);
 
             if (underlyingType == typeof(string))
             {
@@ -103,14 +102,47 @@ namespace decaf.db.common
 
         protected abstract string BytesToString(byte[] input);
 
-        protected abstract string BooleanToString(bool input);
+        protected virtual string BooleanToString(bool input)
+            => input ? Constants.True : Constants.False;
 
         /// <inheritdoc/>
-        public abstract bool ValueNeedsQuoting(Type type);
+        public virtual bool ValueNeedsQuoting(Type type)
+        {
+            var underlyingType = ReflectionHelper.GetUnderlyingType(type);
+
+            if (underlyingType == typeof(bool)) return true;
+            if (underlyingType == typeof(byte[])) return true;
+            if (underlyingType == typeof(DateTime)) return true;
+            if (underlyingType == typeof(int)) return false;
+            if (underlyingType == typeof(uint)) return false;
+            if (underlyingType == typeof(double) ||
+                underlyingType == typeof(float) ||
+                underlyingType == typeof(decimal))
+                return true;
+
+            // default to true, including string types
+            return true;
+        }
 
         /// <inheritdoc/>
         public bool ValueNeedsQuoting<T>(T value)
             => ValueNeedsQuoting(typeof(T));
+
+        /// <inheritdoc/>
+        public string QuoteIfNecessary<T>(T value, bool useColumnQuotes = false)
+            => QuoteIfNecessary(typeof(T), value.ToString(), useColumnQuotes);
+
+        public string QuoteIfNecessary(Type type, string value, bool useColumnQuotes = false)
+        {
+            var quote = useColumnQuotes
+                ? Constants.ColumnQuote
+                : Constants.ValueQuote;
+            var requiresQuoting = ValueNeedsQuoting(type);
+            
+            return !requiresQuoting 
+                ? ToString(value) 
+                : string.Format(Constants.QuoteFormat, quote, value);
+        }
     }
 }
 

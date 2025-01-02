@@ -1,6 +1,6 @@
 using System;
 
-namespace decaf.state.DDL;
+namespace decaf.state.Ddl.Definitions;
 
 public interface IColumnDefinition
 {
@@ -18,4 +18,10 @@ public interface IColumnDefinition
     /// Whether or not this Column is nullable.
     /// </summary>
     bool Nullable { get; }
+
+    /// <summary>
+    /// Get the sanitised column name, i.e. no spaces, special characters etc,
+    /// </summary>
+    /// <returns>The sanitised column name.</returns>
+    string GetSanitisedName();
 }

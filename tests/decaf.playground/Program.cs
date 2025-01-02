@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using decaf;
 using decaf.common;
 using decaf.common.Connections;
+using decaf.ddl;
 using decaf.sqlite;
 using decaf.tests.common.Mocks;
 using decaf.tests.common.Models;

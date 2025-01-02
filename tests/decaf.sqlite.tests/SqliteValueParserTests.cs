@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using decaf.common.Utilities.Reflection;
 using decaf.db.common;
+using decaf.sqlite.Builders;
 using FluentAssertions;
 using Xunit;
 
@@ -13,7 +14,7 @@ namespace decaf.sqlite.tests
 
 		public SqliteValueParserTests()
 		{
-			parser = new SqliteValueParser(new ReflectionHelper());
+			parser = new SqliteValueParser(new ReflectionHelper(), new Constants());
 		}
 
 		[Theory]

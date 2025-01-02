@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
 using decaf.common.Utilities.Reflection;
+using decaf.db.common.Builders;
 
 namespace decaf.tests.common.Mocks
 {
-    public class MockValueParser : db.common.ValueParser
+    public class MockValueParser(IReflectionHelper reflectionHelper, IConstants constants)
+        : db.common.ValueParser(reflectionHelper, constants)
     {
-        public MockValueParser(IReflectionHelper reflectionHelper) :
-            base(reflectionHelper)
-        { }
-
         protected override List<Tuple<string, string>> Replacements => new List<Tuple<string, string>>();
 
         public override bool ValueNeedsQuoting(Type type)

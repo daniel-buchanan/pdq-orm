@@ -94,7 +94,7 @@ namespace decaf.state.Utilities
             if (valueFunction == null) return null;
 
             var memberExpression = callExpr.Object as MemberExpression ??
-                                   callExpr.Arguments.First() as MemberExpression;
+                                   callExpr.Arguments[0] as MemberExpression;
 
             var op = expressionHelper.ConvertExpressionTypeToEqualityOperator(expression);
             var fieldName = expressionHelper.GetMemberName(memberExpression);
@@ -155,7 +155,7 @@ namespace decaf.state.Utilities
             return result;
         }
 
-        private void GetCallAndNonCallExpressions(
+        private static void GetCallAndNonCallExpressions(
             Expression expression,
             out MethodCallExpression callExpr,
             out Expression nonCallExpr)

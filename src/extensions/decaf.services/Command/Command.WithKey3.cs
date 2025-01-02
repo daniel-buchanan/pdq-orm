@@ -126,7 +126,7 @@ namespace decaf.services
         /// <param name="key1Name">The name of the first Key component.</param>
         /// <param name="key2Name">The name of the second Key component.</param>
         /// <param name="key3Name">The name of the third Key component.</param>
-        private void GetKeyColumnNames(IQueryContainer q, out string key1Name, out string key2Name, out string key3Name)
+        private static void GetKeyColumnNames(IQueryContainer q, out string key1Name, out string key2Name, out string key3Name)
         {
             var tmp = new TEntity();
             key1Name = GetKeyColumnName<TEntity>(q, tmp.KeyMetadata.ComponentOne);

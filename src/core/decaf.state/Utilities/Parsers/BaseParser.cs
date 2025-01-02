@@ -28,7 +28,7 @@ namespace decaf.state.Utilities
         /// </summary>
         /// <param name="operation">The operation to check for null ables</param>
         /// <returns>A Tuple of Left,Right Expression</returns>
-        protected Tuple<Expression, Expression> UpdateNullableExpression(
+        protected static Tuple<Expression, Expression> UpdateNullableExpression(
             BinaryExpression operation)
         {
             var left = operation.Left;

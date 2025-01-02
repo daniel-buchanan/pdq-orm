@@ -2,7 +2,7 @@
 using decaf.common;
 using decaf.state.Conditionals;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     public class ColumnMatchBuilder : IColumnMatchBuilder
     {

@@ -7,7 +7,7 @@ using decaf.common.Utilities.Reflection;
 using decaf.common.Utilities.Reflection.Dynamic;
 using decaf.state;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     internal abstract class UpdateBase : Execute<IUpdateQueryContext>
     {
@@ -62,7 +62,7 @@ namespace decaf.Implementation
             }
         }
 
-        private bool PropertyIsKey<T>(T value, DynamicColumnInfo info)
+        private static bool PropertyIsKey<T>(T value, DynamicColumnInfo info)
         {
             var metadata = value.GetPropertyValue("KeyMetadata");
             if (metadata == null) return false;

@@ -6,7 +6,7 @@ using Dapper;
 using decaf.common;
 using decaf.common.Utilities;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     public abstract class Execute<TContext> :
         ExecuteBase<TContext>,

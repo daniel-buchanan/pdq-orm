@@ -2,48 +2,19 @@
 using System.Collections.Generic;
 using decaf.common.Utilities.Reflection;
 using decaf.db.common;
+using decaf.db.common.Builders;
 
 namespace decaf.npgsql
 {
-    public class NpgsqlValueParser : ValueParser
+    public class NpgsqlValueParser(IReflectionHelper reflectionHelper, IConstants constants)
+        : ValueParser(reflectionHelper, constants)
     {
-        public NpgsqlValueParser(IReflectionHelper reflectionHelper)
-            : base(reflectionHelper)
+        protected override List<Tuple<string, string>> Replacements { get; } = new()
         {
-            Replacements = new List<Tuple<string, string>>()
-            {
-                new Tuple<string, string>("'", "''"),
-                new Tuple<string, string>("%%", ""),
-                new Tuple<string, string>("--", "")
-            };
-        }
-
-        protected override List<Tuple<string, string>> Replacements { get; }
-
-        /// <inheritdoc/>
-        public override bool ValueNeedsQuoting(Type type)
-        {
-            var underlyingType = reflectionHelper.GetUnderlyingType(type);
-
-            if (underlyingType == typeof(bool)) return true;
-            else if (underlyingType == typeof(byte[])) return true;
-            else if (underlyingType == typeof(DateTime)) return true;
-            else if (underlyingType == typeof(int)) return false;
-            else if (underlyingType == typeof(uint)) return false;
-            else if (underlyingType == typeof(double) ||
-                     underlyingType == typeof(float) ||
-                     underlyingType == typeof(decimal))
-                return true;
-            else if (underlyingType == typeof(string)) return true;
-
-            return true;
-        }
-
-        protected override bool BooleanFromString(string input)
-            => input == "1";
-
-        protected override string BooleanToString(bool input)
-            => input ? "1" : "0";
+            new Tuple<string, string>("'", "''"),
+            new Tuple<string, string>("%%", ""),
+            new Tuple<string, string>("--", "")
+        };
 
         protected override byte[] BytesFromString(string input)
         {

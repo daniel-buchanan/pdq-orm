@@ -9,7 +9,7 @@ using decaf.common.Utilities.Reflection.Dynamic;
 using decaf.Exceptions;
 using decaf.state;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
 	internal abstract class SelectCommon : Execute<ISelectQueryContext>
 	{

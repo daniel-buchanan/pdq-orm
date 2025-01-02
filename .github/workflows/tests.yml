@@ -12,7 +12,11 @@ jobs:
         with:
           filters: |
             core:
-              - 'src/core/**'
+              - 'src/core/decaf/**'
+              - 'src/core/decaf.common/**'
+              - 'src/core/decaf.state/**'
+            ddl:
+              - 'src/core/decaf.ddl/**'
             db:
               - 'src/db/decaf.db.common/**'
             npgsql:
@@ -27,6 +31,7 @@ jobs:
               - 'src/extensions/decaf.logging.serilog/**'
     outputs:
       run-core: ${{ steps.changes.outputs.core }}
+      run-ddl: ${{ steps.changes.outputs.ddl }}
       run-db: ${{ steps.changes.outputs.db }}
       run-services: ${{ steps.changes.outputs.services }}
       run-npgsql: ${{ steps.changes.outputs.npgsql }}
@@ -43,6 +48,16 @@ jobs:
     with:
       job-name: decaf.core
       test-project: tests/decaf.core.tests/decaf.core.tests.csproj
+  
+  test-decafddl:
+    needs: [ check-paths ]
+    name: test-decaf.ddl
+    if: ${{ needs.check-paths.outputs.run-ddl == 'true' }}
+    uses: ./.github/workflows/test-run.yml
+    secrets: inherit
+    with:
+      job-name: decaf.ddl
+      test-project: tests/decaf.ddl.tests/decaf.ddl.tests.csproj
 
   test-decafdb:
     needs: [check-paths]

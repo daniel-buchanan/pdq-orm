@@ -1,10 +1,14 @@
 using System;
 using System.Linq.Expressions;
 
-namespace decaf;
+namespace decaf.ddl;
 
 public interface IDdlColumnBuilder
 {
+    string Name { get; }
+    bool Nullable { get; }
+    Type Type { get; }
+    
     IDdlColumnBuilder Named(string name);
     
     IDdlColumnBuilder Named<T>();
@@ -13,7 +17,11 @@ public interface IDdlColumnBuilder
 
     IDdlColumnBuilder IsNullable();
 
+    IDdlColumnBuilder IsNullable(bool nullable);
+
     IDdlColumnBuilder AsType<T>();
 
     IDdlColumnBuilder AsType(Type type);
+
+    IDdlColumnBuilder AsType<T>(Expression<Func<T, object>> expression);
 }

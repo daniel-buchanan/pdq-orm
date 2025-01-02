@@ -9,7 +9,7 @@ using decaf.state.Conditionals;
 using decaf.state.QueryTargets;
 
 [assembly: InternalsVisibleTo("decaf.core.tests")]
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     internal class Select :
         SelectCommon,
@@ -36,19 +36,19 @@ namespace decaf.Implementation
 
         /// <inheritdoc/>
         public IJoinFrom Join()
-            => Implementation.Join.Create(this, Context, Options, Query, JoinType.Default);
+            => Execute.Join.Create(this, Context, Options, Query, JoinType.Default);
 
         /// <inheritdoc/>
         public IJoinFrom InnerJoin()
-            => Implementation.Join.Create(this, Context, Options, Query, JoinType.Inner);
+            => Execute.Join.Create(this, Context, Options, Query, JoinType.Inner);
 
         /// <inheritdoc/>
         public IJoinFrom LeftJoin()
-            => Implementation.Join.Create(this, Context, Options, Query, JoinType.Left);
+            => Execute.Join.Create(this, Context, Options, Query, JoinType.Left);
 
         /// <inheritdoc/>
         public IJoinFrom RightJoin()
-            => Implementation.Join.Create(this, Context, Options, Query, JoinType.Right);
+            => Execute.Join.Create(this, Context, Options, Query, JoinType.Right);
 
         /// <inheritdoc/>
         public IGroupBy Where(Action<IWhereBuilder> builder)

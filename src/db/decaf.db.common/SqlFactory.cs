@@ -12,19 +12,22 @@ namespace decaf.db.common
         private readonly IBuilderPipeline<IDeleteQueryContext> deleteBuilder;
         private readonly IBuilderPipeline<IUpdateQueryContext> updateBuilder;
         private readonly IBuilderPipeline<ICreateTableQueryContext> createTableBuilder;
+        private readonly IBuilderPipeline<IDropTableQueryContext> dropTableBuilder;
 
         public SqlFactory(
             IBuilderPipeline<ISelectQueryContext> selectBuilder,
             IBuilderPipeline<IDeleteQueryContext> deleteBuilder,
             IBuilderPipeline<IInsertQueryContext> insertBuilder,
             IBuilderPipeline<IUpdateQueryContext> updateBuilder,
-            IBuilderPipeline<ICreateTableQueryContext> createTableBuilder = null)
+            IBuilderPipeline<ICreateTableQueryContext> createTableBuilder = null,
+            IBuilderPipeline<IDropTableQueryContext> dropTableBuilder = null)
         {
             this.selectBuilder = selectBuilder;
             this.deleteBuilder = deleteBuilder;
             this.insertBuilder = insertBuilder;
             this.updateBuilder = updateBuilder;
             this.createTableBuilder = createTableBuilder;
+            this.dropTableBuilder = dropTableBuilder;
         }
 
         protected virtual bool IncludeParameterPrefix => false;
@@ -61,8 +64,13 @@ namespace decaf.db.common
         protected override SqlTemplate ParseQuery(ISelectQueryContext context)
             => selectBuilder.Execute(context);
 
+        /// <inheritdoc/>
         protected override SqlTemplate ParseQuery(ICreateTableQueryContext context)
             => createTableBuilder.Execute(context);
+        
+        /// <inheritdoc />
+        protected override SqlTemplate ParseQuery(IDropTableQueryContext context)
+            => dropTableBuilder.Execute(context);
     }
 }
 

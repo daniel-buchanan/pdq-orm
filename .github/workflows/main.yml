@@ -28,7 +28,11 @@ jobs:
         with:
           filters: |
             core:
-              - 'src/core/**'
+              - 'src/core/decaf/**'
+              - 'src/core/decaf.common/**'
+              - 'src/core/decaf.state/**'
+            ddl:
+              - 'src/core/decaf.ddl/**'
             db:
               - 'src/db/decaf.db.common/**'
             npgsql:
@@ -43,6 +47,7 @@ jobs:
               - 'src/extensions/decaf.logging.serilog/**'
     outputs:
       run-core: ${{ steps.changes.outputs.core }}
+      run-ddl: ${{ steps.changes.outputs.ddl }}
       run-db: ${{ steps.changes.outputs.db }}
       run-npgsql: ${{ steps.changes.outputs.npgsql }}
       run-sqlserver: ${{ steps.changes.outputs.sqlserver }}
@@ -55,6 +60,13 @@ jobs:
     needs: [check-paths]
     if: ${{ needs.check-paths.outputs.run-core == 'true' }}
     uses: ./.github/workflows/publish-decaf.yml
+    secrets: inherit
+    
+  pub-decaf-ddl:
+    name: decaf.ddl
+    needs: [ check-paths ]
+    if: ${{ needs.check-paths.outputs.run-ddl == 'true' }}
+    uses: ./.github/workflows/publish-decaf.ddl.yml
     secrets: inherit
 
   pub-decafdb:

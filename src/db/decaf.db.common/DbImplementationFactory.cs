@@ -34,6 +34,7 @@ namespace decaf.db.common
             ConfigureService<IBuilderPipeline<IInsertQueryContext>>(services, InsertPipeline, ServiceLifetime.Transient);
             ConfigureService<IBuilderPipeline<IUpdateQueryContext>>(services, UpdatePipeline, ServiceLifetime.Transient);
 	        ConfigureService<IBuilderPipeline<ICreateTableQueryContext>>(services, CreateTablePipeline, ServiceLifetime.Transient);
+	        ConfigureService<IBuilderPipeline<IDropTableQueryContext>>(services, DropTablePipeline, ServiceLifetime.Transient);
         }
 
 		/// <summary>
@@ -44,7 +45,7 @@ namespace decaf.db.common
 		/// <param name="fetchType">The <see cref="Func{Type}"/> to provide the implementation type.</param>
 		/// <param name="lifetime">The lifetime of the service to register (defaults to <see cref="ServiceLifetime.Scoped"/>).</param>
 		/// <param name="instance">The instace for a <see cref="ServiceLifetime.Singleton"/> to be registered.</param>
-		private void ConfigureService<T>(
+		private static void ConfigureService<T>(
 			IServiceCollection services,
 			Func<Type> fetchType,
 			ServiceLifetime lifetime = ServiceLifetime.Scoped,

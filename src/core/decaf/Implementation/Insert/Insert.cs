@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using decaf.common;
 using decaf.state;
 
-namespace decaf.Implementation
+namespace decaf.Implementation.Execute
 {
     internal class Insert :
         InsertBase,

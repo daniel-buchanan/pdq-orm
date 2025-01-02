@@ -48,35 +48,27 @@ namespace decaf.sqlserver.tests
 
 			var passAuth = auth as UsernamePasswordAuthentication;
 			passAuth.Should().NotBeNull();
-			passAuth.Username.Should().Be(username);
+			passAuth!.Username.Should().Be(username);
 			passAuth.Password.Should().Be(password);
 		}
 
-		public static IEnumerable<object[]> InvalidConnectionStrings
-		{
-			get
-			{
-                yield return new object[] { null };
-                yield return new object[] { string.Empty };
-				yield return new object[] { "Bob=Hello;" };
-				yield return new object[] { "Host=bob;" };
-                yield return new object[] { "Host=bob;Port=5432;" };
-                yield return new object[] { "Host=bob;Port=5432;Database=postgres;" };
-                yield return new object[] { "Host=bob;Port=5432;Database=postgres;Username=admin;" };
-                yield return new object[] { "Host=bob;Port=5432;Database=postgres;Username=admin" };
-                yield return new object[] { "Host=bob;Port=5432;Database=postgresUsername=admin;" };
-            }
-		}
+		public static TheoryData<string> InvalidConnectionStrings => new(
+			null,
+			string.Empty,
+			"Bob=Hello;",
+			"Host=bob;",
+			"Host=bob;Port=5432;",
+			"Host=bob;Port=5432;Database=postgres;",
+			"Host=bob;Port=5432;Database=postgres;Username=admin;",
+			"Host=bob;Port=5432;Database=postgres;Username=admin",
+			"Host=bob;Port=5432;Database=postgresUsername=admin;");
 
-		public static IEnumerable<object[]> ValidConnectionStrings
-		{
-			get
+		public static TheoryData<string, int, string, string, string> ValidConnectionStrings => new()
 			{
-				yield return new object[] { "localhost", 5432, "postgres", "admin", "postgres" };
-                yield return new object[] { "cx45.internal", 1234, "postgres", "admin", "postgres" };
-                yield return new object[] { "cx45.internal", 1234, "postgres", "admin", "Password.123856" };
-            }
-		}
+				{ "localhost", 5432, "postgres", "admin", "postgres" },
+				{ "cx45.internal", 1234, "postgres", "admin", "postgres" },
+				{ "cx45.internal", 1234, "postgres", "admin", "Password.123856" }
+			};
 	}
 }
 

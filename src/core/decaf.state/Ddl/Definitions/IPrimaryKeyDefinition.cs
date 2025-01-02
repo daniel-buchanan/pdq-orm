@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace decaf.state.DDL;
+namespace decaf.state.Ddl.Definitions;
 
 public interface IPrimaryKeyDefinition
 {
@@ -14,3 +14,5 @@ public interface IPrimaryKeyDefinition
     /// </summary>
     IEnumerable<IColumnDefinition> Columns { get; }
 }
+
+public interface IPrimaryKeyDefinition<T> : IPrimaryKeyDefinition;

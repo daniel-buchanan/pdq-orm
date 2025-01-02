@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Diagnostics;
 using decaf.common.Connections;
+using decaf.common.DebugProxies;
 using decaf.common.Logging;
 using decaf.common.Utilities;
 
 namespace decaf.common
 {
+	[DebuggerTypeProxy(typeof(QueryContainerDebugProxy))]
 	public sealed class QueryContainer : IQueryContainerInternal
 	{
 		private readonly ILoggerProxy logger;
